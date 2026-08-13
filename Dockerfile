@@ -9,7 +9,8 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o c255t19r .
 
 # run
-FROM gcr.io/distroless/static:nonroot
+FROM scratch
+# FROM gcr.io/distroless/static:nonroot
 
 COPY --from=builder /app/c255t19r /c255t19r
 
