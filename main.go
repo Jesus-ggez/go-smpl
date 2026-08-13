@@ -5,6 +5,7 @@ import (
     "html/template"
     "log"
     "net/http"
+    "os"
     "sync"
 )
 
@@ -41,8 +42,12 @@ func main() {
     http.HandleFunc("/api/counter", handleCounter);
 
 
-    log.Print("run serve")
-    log.Fatal(http.ListenAndServe(":8080", nil))
+    port := os.Getenv("PORT");
+
+    if port == "" {
+        port = "8080";
+    }
+    log.Fatal(http.ListenAndServe(":" + port, nil))
 }
 
 func handleHome(w http.ResponseWriter, r *http.Request) {
