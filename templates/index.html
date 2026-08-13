@@ -1,0 +1,17 @@
+{{ define "index" }}
+
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>{{ .Title }}</title>
+        <link rel="stylesheet" href="/static/css/index.css">
+
+    </head>
+    <body>
+
+        {{ template "counter" . }}
+
+    </body>
+</html>
+{{ end }}

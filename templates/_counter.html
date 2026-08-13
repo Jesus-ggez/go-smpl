@@ -1,0 +1,30 @@
+{{ define "counter" }}
+
+<div class="counter">
+
+    <h1>Counter: {{ .Value }}</h1>
+
+    <form action="/api/counter" method="post" class="boxel">
+
+        <button
+            class="minus button_top"
+            name="action"
+            type="submit"
+            value="res">-</button>
+
+        <button
+            class="reset button_top"
+            name="action"
+            type="submit"
+            value="reset">reset</button>
+
+        <button
+            class="sum button_top"
+            name="action"
+            type="submit"
+            value="sum">+</button>
+
+    </form>
+
+</div>
+{{ end }}
