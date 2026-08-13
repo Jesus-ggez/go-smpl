@@ -6,18 +6,18 @@ WORKDIR /app
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o c255t19r .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o app .
 
-# run
-FROM scratch
-# FROM gcr.io/distroless/static:nonroot
+FROM alpine:latest
 
-COPY --from=builder /app/c255t19r /c255t19r
+RUN apk --no-cache add ca-certificates tzdata
 
-USER nonroot:nonroot
+WORKDIR /root/
+
+COPY --from=builder /app/app .
 
 ENV TZ=America/Mexico_City
 
 EXPOSE 8080
 
-ENTRYPOINT [ "/c255t19r" ]
+CMD ["./app"]
