@@ -3,6 +3,7 @@ package main
 import (
     "embed"
     "html/template"
+    "io/fs"
     "log"
     "net/http"
     "os"
@@ -35,7 +36,13 @@ var globCounter = &Counter{ Value: 0 };
 func main() {
     log.Print("init app")
 
-    http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))));
+    staticFS, err := fs.Sub(templateFS, "static");
+
+    if err != nil {
+        log.Fatal("Error loading static files: ", err);
+    }
+
+    http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.FS(staticFS))));
 
     http.HandleFunc("/", handleHome);
 
